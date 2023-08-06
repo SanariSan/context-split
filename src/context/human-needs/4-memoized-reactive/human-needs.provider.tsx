@@ -1,15 +1,8 @@
-import {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import { TEat, eatEffect } from "./effects";
 import { HumanNeedsContextMemoizedReactive } from "./human-needs.context";
+import { TReactive, TState } from "./human-needs.context.type";
 import { TFoodCombined, foodCombinedSelector } from "./selectors";
-import { TState } from "./human-needs.context.type";
 
 export const HumanNeedsProviderMemoizedReactive = ({
   children,
@@ -29,7 +22,8 @@ export const HumanNeedsProviderMemoizedReactive = ({
 
   // --- reactive setup
 
-  const reactive = useRef({
+  const reactive = useRef({}) as TReactive;
+  reactive.current = {
     state: {
       pastaKg,
       saladKg,
@@ -43,25 +37,7 @@ export const HumanNeedsProviderMemoizedReactive = ({
       setSaladKg,
       setWaterL,
     },
-  });
-
-  useEffect(() => {
-    reactive.current = {
-      state: {
-        pastaKg,
-        saladKg,
-        waterL,
-      },
-      selectors: {
-        foodCombined,
-      },
-      setters: {
-        setPastaKg,
-        setSaladKg,
-        setWaterL,
-      },
-    };
-  }, [pastaKg, saladKg, waterL, foodCombined]);
+  };
 
   // --- effects
 
