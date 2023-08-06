@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
-import { TEat, eatEffect } from "./effects";
+import { TEat, TReq, eatEffect, reqEffect } from "./effects";
 import { HumanNeedsContextMemoizedReactive } from "./human-needs.context";
 import { TReactive, TState } from "./human-needs.context.type";
 import { TFoodCombined, foodCombinedSelector } from "./selectors";
@@ -42,7 +42,7 @@ export const HumanNeedsProviderMemoizedReactive = ({
   // --- effects
 
   const eat: TEat = useCallback((...args) => eatEffect(reactive)(...args), []);
-  // const walk: TEat = useCallback((...args) => walkEffect(reactive)(...args), []);
+  const req: TReq = useCallback((...args) => reqEffect(reactive)(...args), []);
   // const etc: TEat = useCallback((...args) => etcEffect(reactive)(...args), []);
 
   return (
@@ -51,6 +51,7 @@ export const HumanNeedsProviderMemoizedReactive = ({
         waterL,
         pastaKg,
         saladKg,
+        req,
         eat,
       }}
     >

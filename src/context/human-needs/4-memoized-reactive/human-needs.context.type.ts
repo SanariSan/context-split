@@ -1,5 +1,5 @@
 import { Dispatch, MutableRefObject, SetStateAction } from "react";
-import { TEat } from "./effects";
+import { TEat, TReq } from "./effects";
 
 export type TState = {
   pastaKg: number;
@@ -28,4 +28,5 @@ export type TContext = {
   saladKg: TState["saladKg"];
   waterL: TState["waterL"];
   eat: TEat;
+  req: TReq;
 };

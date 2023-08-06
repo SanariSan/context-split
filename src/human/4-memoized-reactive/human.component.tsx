@@ -14,7 +14,7 @@ const statesOfTheDay: ["night", "morning", "evening"] = [
 ];
 
 export const HumanComponentMemoizedReactive: FC<THumanComponent> = () => {
-  const { saladKg, pastaKg, waterL, eat } = useContext(
+  const { saladKg, pastaKg, waterL, eat, req } = useContext(
     HumanNeedsContextMemoizedReactive
   );
   const [stateOfTheDayIdx, setStateOfTheDayIdx] = useState(0);
@@ -25,6 +25,14 @@ export const HumanComponentMemoizedReactive: FC<THumanComponent> = () => {
       stateOfTheDayIdx === statesOfTheDay.length - 1 ? 0 : stateOfTheDayIdx + 1
     );
   };
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    void req({ signal: abortController.signal });
+
+    return () => abortController.abort();
+  }, [req]);
 
   useEffect(() => {
     if (stateOfTheDay === "morning") {
